@@ -8,9 +8,10 @@ SHOW GRANTS FOR user;
 docker compose exec node npm install
 docker compose exec npm run build
 
-Создание БД
+В Postam -> Body используется параметр csrf_token, его мы получаем в /meatfactura_project/core/Application.php
+в методе generateCsrfToken()
 
-SHOW DATABASES;
+Создание БД
 
 CREATE DATABASE meatfactura
     WITH
