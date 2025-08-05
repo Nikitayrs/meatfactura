@@ -1,0 +1,70 @@
+services:
+  nginx:
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www
+    environment:
+      - "DB_PORT=5432"
+      - "DB_HOST=postgres"
+    ports:
+      - "8080:80"
+    links:
+      - php-fpm
+      - node
+
+  php-fpm:
+    build:
+      context: ./docker/php-fpm
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www
+    environment:
+      - "DB_PORT=5432"
+      - "DB_HOST=postgres"
+    links:
+      - postgres
+
+  php-cli:
+    build:
+      context: ./
+      dockerfile: docker/php-cli.docker
+    volumes:
+      - ./:/var/www
+    environment:
+      - "DB_PORT=5432"
+      - "DB_HOST=postgres"
+    links:
+      - postgres
+    tty: true
+
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_DB: meatfactura
+      POSTGRES_USER: development
+      POSTGRES_PASSWORD: development
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: your_email@example.com
+      PGADMIN_DEFAULT_PASSWORD: your_password
+    ports:
+      - "91:80"
+    depends_on:
+      - postgres
+  node:
+    image: node:18-alpine
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/var/www
+    working_dir: /var/www
+    tty: true
+
+volumes:
+  postgres:

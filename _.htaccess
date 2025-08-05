@@ -1,0 +1,17 @@
+# Настройки для Apache
+RewriteEngine On # включает сам движок перезаписи URL. Без этого последующие правила не сработали бы.
+
+# Перенаправляем все запросы в папку public, если они не начинаются с /public
+RewriteCond %{REQUEST_URI} !^public
+RewriteRule ^(.*)$ public/$1 [L]
+
+# Обработка административных маршрутов
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/admin [NC]
+RewriteRule ^ admin.php [L]
+
+# Обработка обычных маршрутов
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [L]

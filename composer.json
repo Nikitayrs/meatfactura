@@ -1,0 +1,20 @@
+{
+  "autoload": {
+    "psr-4": {
+      "PHPFramework\\": "core/",
+      "App\\": "app/"
+    }
+  },
+  "require": {
+    "php": ">=8.0",
+    "symfony/var-dumper": "^6.3",
+    "vlucas/valitron": "^1.4",
+    "ext-pdo": "*",
+    "filp/whoops": "^2.15",
+    "phpmailer/phpmailer": "^6.9",
+    "doctrine/orm": "^3",
+    "doctrine/dbal": "^4",
+    "symfony/cache": "^7",
+    "symfony/validator": "^7.3"
+  }
+}
