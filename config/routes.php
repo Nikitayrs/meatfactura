@@ -24,7 +24,7 @@ $app->router->add('/api/v1/test', function () {
 $app->router->post('/register/send', [UserController::class, 'sendVerificationCode'])->middleware(['guest']);
 $app->router->post('/register', [UserController::class, 'registerByPhone'])->middleware(['guest']);
 $app->router->post('/login', [UserController::class, 'auth'])->middleware(['guest']);
-$app->router->get('/logout', [UserController::class, 'logout'])->middleware(['auth']);
+$app->router->post('/logout', [UserController::class, 'logout'])->middleware(['auth']);
 
 // Products
 $app->router->get('/products', [ProductController::class, 'index']);

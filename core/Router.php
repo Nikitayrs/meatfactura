@@ -74,10 +74,7 @@ class Router
     protected function matchRoute($path): mixed
     {
         $allowed_methods = [];
-// $path - orders
-// /orders/(?P<id>\d+) - $route['path']
-// "orders?user_id=1"
-// var_dump($route['path']); /orders
+
         foreach ($this->routes as $route) {
             if (MULTILANGS) {
                 // $pattern = "#^/?(?P<lang>[a-z]+)?{$route['path']}$#";
@@ -108,8 +105,6 @@ class Router
                     }
                 }
 
-                // если язык есть, но его нет в массиве допустимых - 404
-                // если язык есть, но это базовый язык - 404
                 $lang = trim(get_route_param('lang'), '/');
                 $base_lang = array_value_search(LANGS, 'base', 1);
 
